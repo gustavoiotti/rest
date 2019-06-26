@@ -1,4 +1,4 @@
-package main.java.br.edu.utfpr.apresentacao;
+package br.edu.utfpr.apresentacao;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

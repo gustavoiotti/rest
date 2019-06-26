@@ -1,4 +1,4 @@
-package main.java.br.edu.utfpr.apresentacao;
+package br.edu.utfpr.apresentacao;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;

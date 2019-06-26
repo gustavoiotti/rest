@@ -25,16 +25,18 @@ public class ServicoCliente {
     private List<PaisDTO> paises;
 
     public ServicoCliente() {
-        clientes = Stream
-                .of(ClienteDTO.builder().id(1).nome("João").idade(19).telefone("123").limiteCredito(1000).pais(paises.get(3)).build(),
-                        ClienteDTO.builder().id(2).nome("Maria").idade(17).telefone("321").limiteCredito(100).pais(paises.get(2)).build(),
-                        ClienteDTO.builder().id(3).nome("Pedro").idade(20).telefone("999").limiteCredito(2000).pais(paises.get(1)).build())
-                .collect(Collectors.toList());
+
         paises = Stream
                 .of(PaisDTO.builder().id(1).nome("Iceland").sigla("IC").codigoTelefone(33).build(),
                         PaisDTO.builder().id(2).nome("Italia").sigla("IT").codigoTelefone(22).build(),
                         PaisDTO.builder().id(3).nome("Brasil").sigla("BR").codigoTelefone(55).build()
                 )
+                .collect(Collectors.toList());
+        
+        clientes = Stream
+                .of(ClienteDTO.builder().id(1).nome("João").idade(19).telefone("99777151").limiteCredito(1500.00).pais(paises.get(3)).build(),
+                        ClienteDTO.builder().id(2).nome("Aldo").idade(17).telefone("84373777").limiteCredito(800.00).pais(paises.get(2)).build(),
+                        ClienteDTO.builder().id(3).nome("Pedro").idade(20).telefone("99805600").limiteCredito(2000.00).pais(paises.get(1)).build())
                 .collect(Collectors.toList());
         
     }
@@ -79,13 +81,14 @@ public class ServicoCliente {
         clienteExistente.ifPresent(c -> {
             try {
                 c.setNome(cliente.getNome());
-            } catch (Exception e) {
+            } catch (NomeClienteMenor5CaracteresException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
             c.setIdade(cliente.getIdade());
             c.setTelefone(cliente.getTelefone());
             c.setLimiteCredito(cliente.getLimiteCredito());
+            c.setPais(paises.stream().filter(p -> p.getId() == cliente.getPais().getId()).findAny().get());
         });
 
         return ResponseEntity.of(clienteExistente);
